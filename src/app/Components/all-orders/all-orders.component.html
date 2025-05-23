@@ -1,0 +1,113 @@
+<section class="p-4">
+  <div class="container">
+    <h1 class="h2 mb-4">Checkout History</h1>
+    <!-- Loop through each order -->
+    @for (item of cartDetails; track item._id) {
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title border-bottom mb-3 d-flex justify-content-between">
+          <h4>Recipt Number: {{ item.id }}</h4>
+          <span (click)="togglePopup(item.id)"><i class="fa-solid fa-circle-info fa-xl text-main cr"></i></span>
+        </div>
+
+        <div class="card-text">
+          <!-- Loop through each cart item in this order -->
+          @for (cartItem of item.cartItems; track cartItem._id; let last = $last) {
+          <div class="mb-3 pb-2" [class.border-bottom]="!last">
+            <div class="row align-items-center">
+              <div class="col-md-1">
+                <img [src]="cartItem.product.imageCover" class="w-100" [alt]="cartItem.product.title">
+              </div>
+              <div class="col-md-5">
+                <strong>{{ cartItem.product.title }}</strong>
+                <p class="rounded-3 w-fit bg-main text-white py-1 px-2">
+                  {{ cartItem.product.category.name }}
+                </p>
+              </div>
+              <div class="col-md-2">
+                <p class="mb-0">{{ cartItem.price | currency: 'EGP ' }}</p>
+              </div>
+              <div class="col-md-2">
+                <strong>{{ cartItem.count }}</strong>
+              </div>
+              <div class="col-md-2">
+                <strong>{{ cartItem.price * cartItem.count | currency: 'EGP ' }}</strong>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- checkout payment details -->
+    <div class="popup-overlay" *ngIf="activePopupId === item.id">
+      <div class="popup-dialog">
+        <section class="p-3">
+          <div class="title d-flex gap-2 border-bottom">
+            <span class="text-main"><i class="fa-solid fa-file-lines fa-xl"></i></span>
+            <h4 class="mb-3 text-main">Checkout Details</h4>
+          </div>
+          <div class="details my-3">
+            <div class="row">
+              <div class="col-md-6">
+                <p>Paid At:</p>
+              </div>
+              <div class="col-md-6">
+                <strong>{{ item.paidAt | date:'medium' }} </strong>
+              </div>
+              <!-- =========== -->
+              <div class="col-md-6">
+                <p>Payment Method:</p>
+              </div>
+              <div class="col-md-6">
+                <strong>{{item.paymentMethodType}} </strong>
+              </div>
+              <!-- =========== -->
+              <div class="col-md-6">
+                <p>Total Price:</p>
+              </div>
+              <div class="col-md-6">
+                <strong>{{item.totalOrderPrice | currency: "EGP "}} </strong>
+              </div>
+              <!-- =========== -->
+              <div class="col-md-6">
+                <p>Address:</p>
+              </div>
+              <div class="col-md-6">
+                <strong>{{item.shippingAddress.details}} </strong>
+              </div>
+              <!-- =========== -->
+              <div class="col-md-6">
+                <p>City:</p>
+              </div>
+              <div class="col-md-6">
+                <strong>{{item.shippingAddress.city}} </strong>
+              </div>
+              <!-- =========== -->
+              <div class="col-md-6">
+                <p>Phone:</p>
+              </div>
+              <div class="col-md-6">
+                <strong>{{item.shippingAddress.phone}}</strong>
+              </div>
+              <!-- =========== -->
+              <div class="col-md-6">
+                <p>status:</p>
+              </div>
+              <div class="col-md-6">
+                <strong [class.text-success]="item.isPaid" [class.text-danger]="!item.isPaid">
+                  {{ item.isPaid ? 'Paid' : 'Unpaid' }}
+                </strong>
+              </div>
+            </div>
+          </div>
+          <button class="btn-main w-100" (click)="closePopup()">Close</button>
+        </section>
+      </div>
+    </div>
+    }
+
+    <button class="btn-main" routerLink="/home">Home</button>
+  </div>
+</section>

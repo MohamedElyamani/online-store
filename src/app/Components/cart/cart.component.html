@@ -1,0 +1,58 @@
+<section class="p-4">
+  @if (cartDetails.products && cartDetails.products.length > 0) {
+  <div class="container">
+    <h1 class="h2 mb-4">Shopping Cart</h1>
+    <div class="row align-items-start">
+      <!-- Order Summary FIRST (Top Right) -->
+      <div class="col-md-3 order-md-2 mb-3">
+        <app-order-summary [subTotal]="cartDetails.totalCartPrice" [total]="total" [totalTax]="totalTax"
+          [itemId]="cartDetails._id">
+        </app-order-summary>
+      </div>
+
+      <!-- Products List -->
+      <div class="col-md-9 order-md-1">
+        @for (item of cartDetails.products; track cartDetails._id; let last = $last) {
+        <div class="mb-2" [class.border-bottom]="!last">
+          <div class="row">
+            <div class="col-md-1">
+              <img src="{{item.product.imageCover}}" class="w-100" [alt]="item.product.title">
+            </div>
+            <div class="col-md-5">
+              <strong>{{item.product.title}}</strong>
+              <p class="rounded-3 w-fit bg-main text-white py-1 px-2">
+                {{item.product.category.name}}
+              </p>
+            </div>
+            <div class="col-md-3 d-flex gap-2 align-items-center justify-content-center">
+              <span class="text-danger cr" (click)="removeFromCart(item.product.id)">
+                <i class="fa-solid fa-trash"></i>
+              </span>
+              <p class="mb-0">{{item.price | currency: "EGP "}}</p>
+            </div>
+            <div class="col-md-3 d-flex gap-2 align-items-center justify-content-end">
+              <span class="text-main cr iconPM" (click)="updateProductCount(item.product.id, item.count +1)">
+                <i class="fa-solid fa-circle-plus fa-xl"></i>
+              </span>
+              <strong>{{item.count}}</strong>
+              <span class="text-main cr iconPM" (click)="updateProductCount(item.product.id, item.count -1)">
+                <i class="fa-solid fa-circle-minus fa-xl"></i>
+              </span>
+              <strong>{{item.price * item.count | currency: "EGP "}}</strong>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+  </div>
+  }
+  @else {
+  <div class="empty text-center">
+    <img src="./assets/images/cart-empty.jpg" alt="Shopping Cart Empty">
+  </div>
+
+  }
+
+</section>

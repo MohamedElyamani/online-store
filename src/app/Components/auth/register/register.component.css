@@ -1,0 +1,21 @@
+.right
+{
+    height: 100vh;
+}
+.left{
+    height: 80vh;
+}
+.row{
+    --bs-gutter-x: 0rem !important; 
+   --bs-gutter-y: 0;
+}
+.right p{
+    color: #fff;
+}
+input{
+    border-color:var(--main-color)!important;
+}
+
+.right a:hover{
+    background-color: #d8d8d8 !important;
+}

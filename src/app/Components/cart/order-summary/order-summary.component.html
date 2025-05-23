@@ -1,0 +1,32 @@
+<section class="border p-3 rounded-3">
+  <div class="title d-flex gap-2 border-bottom">
+    <span class="text-main"><i class="fa-solid fa-file-lines fa-xl"></i></span>
+    <h4 class="mb-3 text-main">Order Summary</h4>
+  </div>
+
+  <div class="details my-3 border-bottom">
+    <div class="subTotal d-flex justify-content-between">
+      <p class="mb-3">Subtotal</p>
+      <!-- <h4 class="mb-3">{{cartTotal | currency: "EGP "}}</h4> -->
+      <strong class="mb-3">{{subTotal | currency:'EGP '}}</strong>
+    </div>
+    <div class="discount my-3 d-flex justify-content-between">
+      <p class="mb-3">Discount</p>
+      <input type="number" [(ngModel)]="discount" (input)="applyDiscount()" class="form-control w-50">
+    </div>
+    <div class="Tax d-flex justify-content-between">
+      <p class="mb-3">Tax <small class="text-muted">(14%)</small></p>
+      <strong class="mb-3">{{totalTax | currency:'EGP '}}</strong>
+    </div>
+  </div>
+
+  <div class="checkout">
+    <input type="text" id="discount" class="form-control mb-3" placeholder="Discount Code">
+    <div class="total d-flex justify-content-between">
+      <p class="mb-3">Total</p>
+      <strong class="mb-3">{{total | currency:'EGP '}}</strong>
+    </div>
+
+    <button [routerLink]="['/orders',itemId]" class="btn-main w-100">Checkout</button>
+  </div>
+</section>

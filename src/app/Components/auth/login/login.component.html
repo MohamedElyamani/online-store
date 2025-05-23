@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="right bg-main w-50">
+        <div class="container w-75">
+            <img src="./assets/images/freshcart-logo-light.svg" class="w-50 my-5" alt="logo">
+            <p>t is a long established fact that a reader will be distracted by the readable content of a page when
+                looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution
+                of letters.<br><br> as opposed to using 'Content here, content here', making it look like readable
+                English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default
+                model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p>
+            <a routerLink="/register" class="btn bg-white mt-5">Creat New Account..!</a>
+        </div>
+    </div>
+    <div class="left d-flex w-50">
+        <div class="container d-flex flex-column justify-content-center w-75">
+            <h3 class="bold">Lgoin</h3>
+            <form class="my-3" [formGroup]="loginForm" (ngSubmit)="login()">
+                <label for="email">Email:</label>
+                <input type="email" id="email" formControlName="email" class="form-control my-2">
+
+                <label for="password">Password:</label>
+                <input type="password" formControlName="password" id="password" class="form-control mt-2">
+            </form>
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="submit" class="btn text-white btn-main" (click)="login()">
+                        Login
+                        @if(isLoading){
+                        <span><i class="fa fa-spin fa-spinner"></i></span>
+                        }
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

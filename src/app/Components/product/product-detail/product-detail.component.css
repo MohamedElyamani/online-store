@@ -1,0 +1,6 @@
+.product img{
+    width: 75%; 
+    max-height: 100%; 
+    object-fit: contain;
+    margin: auto;
+}
